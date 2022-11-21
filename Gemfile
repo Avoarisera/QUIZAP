@@ -26,12 +26,11 @@ gem "rolify"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
-
+# Call 'byebug' anywhere in the code to stop execution and get a debugger console
+gem "byebug", platforms: %i[mri mingw x64_mingw]
+  
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
-
-# Seamless JWT authentication for Rails API
-gem "knock"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
