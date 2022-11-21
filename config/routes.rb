@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post "/sign-in" => "auth#sign_in"
   get 'results/show'
   get 'results/create'
   get 'results/update'
