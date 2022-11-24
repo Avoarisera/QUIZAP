@@ -3,6 +3,7 @@ class CreateQuizzs < ActiveRecord::Migration[7.0]
     create_table :quizzs do |t|
       t.string :name
       t.string :description
+      t.references :user, foreign_key: true
 
       t.timestamps
     end
