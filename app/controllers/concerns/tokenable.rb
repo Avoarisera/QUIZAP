@@ -3,7 +3,6 @@
 module Tokenable
   extend ActiveSupport::Concern
 
-  require "json_web_token"
 
   # FIXME: Reference of controller methods is a bad practice
   included do
@@ -20,7 +19,6 @@ module Tokenable
   end
 
   def generate_token(payload)
-    byebug
     JsonWebToken.encode(payload)
   end
 
