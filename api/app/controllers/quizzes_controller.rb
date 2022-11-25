@@ -21,7 +21,6 @@ class QuizzesController < ApplicationController
   # POST /quizzes.json
   def create
     @quiz = Quiz.new(quiz_params)
-
     if @quiz.save
       render json: { status: :created, entity: @quiz }
     else
@@ -57,6 +56,6 @@ class QuizzesController < ApplicationController
     end
 
     def quiz_params
-      params.require(:quiz).permit(:name, :description)
+      params.require(:data).require(:attributes).permit(:name, :description, :user_id)
     end
 end

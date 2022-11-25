@@ -1,26 +1,11 @@
 class QuestionsController < ApplicationController
-  before_action :set_quiz
   before_action :set_question, only: [:show, :edit, :update, :destroy]
 
   # GET /questions
   # GET /questions.json
   def index
-    @questions = @quiz.questions.all
+    @questions = Question.all
     render json: @questions
-  end
-
-  def check_answer
-    response = {}
-    @question = @quiz.questions.find(params[:question_id])
-    if params[:answer] == @question.answer
-      @question.correct_answers = @question.correct_answers.to_i + 1
-      response['correct'] = true
-    else
-      response['correct'] = false
-    end
-    @question.times_answered = @question.times_answered.to_i + 1
-    @question.save
-    render json: response
   end
 
   # GET /questions/1
@@ -36,7 +21,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = @quiz.questions.new(question_params)
+    @question = Question.new(question_params)
 
     if @question.save
       render json: { status: :created, entity: @question }
@@ -68,19 +53,14 @@ class QuestionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_question
       begin
-        @question = @quiz.questions.find(params[:id])
+        @question = Question.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         return
       end
     end
 
-    def set_quiz
-      @quiz = Quiz.find(params[:quiz_id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:content, :coefficient)
+      params.require(:data).require(:attributes).permit(:content, :coefficient, :quiz_id)
     end
 
 end
