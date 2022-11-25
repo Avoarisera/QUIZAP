@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
   let(:question) { create(:question) }
-  describe "#quizz" do
+  describe "#quiz" do
     it "is not empty" do
       expect do
-        question.quizz_id = nil
+        question.quiz_id = nil
         question.save!
       end.to raise_error(ActiveRecord::RecordInvalid)
     end

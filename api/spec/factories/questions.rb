@@ -2,6 +2,6 @@ FactoryBot.define do
   factory :question do
     content { "MyString" }
     coefficient { "MyString" }
-    quizz { association :quizz }
+    quiz { association :quiz }
   end
 end

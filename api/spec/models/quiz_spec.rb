@@ -1,26 +1,26 @@
 require 'rails_helper'
 
-RSpec.describe Quizz, type: :model do
+RSpec.describe quiz, type: :model do
   let(:user) { create(:user) }
-  let(:quizz) { create(:quizz) }
+  let(:quiz) { create(:quiz) }
   describe "#user" do
     it "is not empty" do
       expect do
-        quizz.user_id = nil
-        quizz.save!
+        quiz.user_id = nil
+        quiz.save!
       end.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
   describe "#name" do
     it "is not empty" do
       expect do
-        quizz.name = nil
-        quizz.save!
+        quiz.name = nil
+        quiz.save!
       end.to raise_error(ActiveRecord::RecordInvalid)
 
       expect do
-        quizz.name = ""
-        quizz.save!
+        quiz.name = ""
+        quiz.save!
       end.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
@@ -28,13 +28,13 @@ RSpec.describe Quizz, type: :model do
   describe "#description" do
     it "is not empty" do
       expect do
-        quizz.description = nil
-        quizz.save!
+        quiz.description = nil
+        quiz.save!
       end.to raise_error(ActiveRecord::RecordInvalid)
 
       expect do
-        quizz.description = ""
-        quizz.save!
+        quiz.description = ""
+        quiz.save!
       end.to raise_error(ActiveRecord::RecordInvalid)
     end
   end

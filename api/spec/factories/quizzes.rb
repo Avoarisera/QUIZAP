@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :quizz do
+  factory :quiz do
     name { "MyString" }
     description { "MyString" }
     user { association :user }

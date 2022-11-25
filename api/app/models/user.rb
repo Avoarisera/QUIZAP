@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   include Roleable
   has_secure_password
-  has_many :quizzs
+  has_many :quizzes
   validates :email, presence: true
   validates :email, uniqueness: { case_sensitive: false }
   validates :email, format: { with: /.+@.+\..+/i }
