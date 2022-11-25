@@ -1,24 +1,52 @@
 require 'rails_helper'
 
 RSpec.describe "Questions", type: :request do
-  describe "GET /create" do
-    it "returns http success" do
-      get "/questions/create"
-      expect(response).to have_http_status(:success)
+  describe "Questions" do
+    setup do
+      @user = create(:user, password: "123456")
+      @quiz = create(:quiz)
+      @question = create(:question)
+      @token = JsonWebToken.encode({ uid: @user.id })
+      @authorization_header = 
+        {
+          Authorization: "Bearer #{@token}"
+        }
     end
-  end
-
-  describe "GET /update" do
-    it "returns http success" do
-      get "/questions/update"
-      expect(response).to have_http_status(:success)
+    it "create question" do
+      post questions_url,
+      headers: @authorization_header,
+      params: {
+        data: {
+          type: "questions",
+          attributes: {
+            content: "question10101",
+            coefficient: 2,
+            quiz_id: @quiz.id
+          }
+        }
+      }, as: :json
+      expect(response).to have_http_status(:ok)
     end
-  end
 
-  describe "GET /destroy" do
-    it "returns http success" do
-      get "/questions/destroy"
-      expect(response).to have_http_status(:success)
+    it "update question" do
+      attributes = { content: "Myquestion" }
+      patch question_url(@question),
+            headers: @authorization_header,
+            params: {
+              data: {
+                id: @question.id.to_s,
+                type: "questions",
+                attributes: attributes
+              }
+            }, as: :json
+      assert_response 200
+      body_as_json = JSON.parse(response.body)
+      assert_equal "Myquestion", body_as_json["entity"]["content"]
+    end
+
+    it "destroy question" do
+      delete quiz_url(@quiz), headers: @authorization_header, as: :json
+      assert_response 204
     end
   end
 
