@@ -14,15 +14,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_002928) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "answer_choices", force: :cascade do |t|
-    t.string "content"
-    t.boolean "correct_answer"
-    t.bigint "question_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["question_id"], name: "index_answer_choices_on_question_id"
-  end
-
   create_table "questions", force: :cascade do |t|
     t.string "content"
     t.string "coefficient"
@@ -69,7 +60,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_002928) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "answer_choices", "questions"
   add_foreign_key "questions", "quizzes"
   add_foreign_key "quizzes", "users"
   add_foreign_key "results", "quizzes"
