@@ -8,12 +8,16 @@ import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NewQuizComponent } from './new-quiz/new-quiz.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 @NgModule({
   declarations: [
     AppComponent,
     QuizzesListComponent,
     QuizDetailsComponent,
-    LoginComponent
+    LoginComponent,
+    NewQuizComponent,
+    CreateUserComponent
   ],
   imports: [
     BrowserModule,
@@ -24,6 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forRoot([
       { path: '', component: QuizzesListComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'new-student', component: CreateUserComponent },
+      { path: 'new-quiz', component: NewQuizComponent },
       { path: 'quizzes/:quiz_id', component: QuizDetailsComponent },
     ])
   ],
