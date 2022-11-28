@@ -1,0 +1,26 @@
+<h1>Students Lists:</h1>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">First-name</th>
+			<th scope="col">Last-Name</th>
+			<th scope="col">email</th>
+			<th scope="col">Username</th>
+			<th scope="col">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let user of usersList; index as i">
+			<th scope="row">{{ user.first_name }}</th>
+			<td>
+				{{ user.last_name }}
+			</td>
+			<td>{{ user.email }}</td>
+			<td>{{ user.username }}</td>
+			<td>
+        <a routerLink="/new-user" class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square"></i></a>&nbsp;
+        <a (click)="deleteUser(user.id)" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash3"></i></a>
+      </td>
+		</tr>
+	</tbody>
+</table>

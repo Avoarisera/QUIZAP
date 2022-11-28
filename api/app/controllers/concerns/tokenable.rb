@@ -2,7 +2,7 @@
 
 module Tokenable
   extend ActiveSupport::Concern
-
+  require "json_web_token"
 
   # FIXME: Reference of controller methods is a bad practice
   included do

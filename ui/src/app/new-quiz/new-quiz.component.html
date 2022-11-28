@@ -16,12 +16,12 @@
     <br>
     <button class="btn btn-outline-primary btn-sm" type="button" (click)="addQuestions()">+ Add another questions</button>
   
-    <div *ngFor="let questions of questions.controls; let i=index">
-      <ng-container class="row" [formGroupName]="i">
+    <div *ngFor="let question of questions().controls; let questionIndex=index">
+      <ng-container class="row" [formGroupName]="questionIndex">
         <p align="right">
           <button class="btn btn-warning btn-sm" type="submit" >Cancel</button>
         </p>
-        <p>{{i+1}}:</p>
+        <p>Question-{{questionIndex+1}}:</p>
         <div class="row" >
           <div class="form-group col-md-8">
             <label for="content">Content: </label>
@@ -33,15 +33,22 @@
             <input class="form-control" id="coefficient" type="number" formControlName="coefficient">
           </div>
         </div>
-        <div class="row align-items-center" >        
-          <div class="form-group col-sm-8 my-1">
-            <label for="coefficient">Answer: </label>
-            <input class="form-control" id="coefficient" type="text" formControlName="coefficient">
-          </div>
-          <div class="col-auto my-1" style="margin-top:25px !important;">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">&ensp;Correct</label>
-          </div>
+        <br>
+        <div formArrayName="answers">
+          <button class="btn btn-outline-info btn-sm" type="button" (click)="addAnswers(questionIndex)">+ Add answers</button>
+            <div class="row" *ngFor="let answers of questionAnswers(questionIndex).controls; let answerIndex=index" [formGroupName]="answerIndex">
+              <p>Question-{{questionIndex+1}}-Answer-{{answerIndex+1}}:</p>
+              <div class="row align-items-center" >        
+                <div class="form-group col-sm-8 my-1">
+                  <label for="title">Answer: </label>
+                  <input class="form-control" id="title" type="text" formControlName="title">
+                </div>
+                <div class="col-auto my-1" style="margin-top:25px !important;">
+                  <input type="checkbox" class="form-check-input" id="correct_answer" formControlName="correct_answer">
+                  <label class="form-check-label" for="exampleCheck1">&ensp;Correct</label>
+                </div>
+              </div>
+            </div>
         </div>
         <hr>
       </ng-container>

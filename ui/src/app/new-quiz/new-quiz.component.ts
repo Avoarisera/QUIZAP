@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 @Component({
   selector: 'app-new-quiz',
@@ -15,11 +15,11 @@ export class NewQuizComponent {
       this.fb.group({
         content: [''],
         coefficient: [''],
-        answers: 
+        answers: this.fb.array([
           this.fb.group({
-            content: [''],
+            title: [''],
             correct_answer: [false]
-          })
+          })])
       })
     ])
   });
@@ -28,31 +28,48 @@ export class NewQuizComponent {
     console.warn(this.quizForm.value);
   }
 
-  get questions() {
-    // console.log('this.questions.controls', this.questions.controls)
+  questions(): FormArray {
     return this.quizForm.get('questions') as FormArray;
   }
 
-  // get answers(index: any) {
-  //   return this.questions.controls[index]?.answers as FormArray;
-  // }
+  newQuestions(): FormGroup {
+    return this.fb.group({
+      content: [''],
+      coefficient: [''],
+      answers: this.fb.array([])
+    });
+  }
 
   addQuestions() {
-    console.log('this.questions', this.questions)
-    // console.log('this.answers', this.answers)
-    this.questions.push(this.fb.group({
+    this.questions().push(this.fb.group({
       content: ['', {updateOn: 'blur'}],
       coefficient: '',
     }));
   }
 
-  addAnswers() {
-    console.log('this.questions', this.questions)
-    this.questions.push(this.fb.group({
-      content: ['', {updateOn: 'blur'}],
-      coefficient: '',
-    }));
+  removeEmployee(quesIndex: number) {
+    this.questions().removeAt(quesIndex);
   }
 
+  newAnswer(): FormGroup {
+    return this.fb.group({
+      title: [''],
+      correct_answer: [false]
+    });
+  }
+
+  questionAnswers(quesIndex: number): FormArray {
+    return this.questions()
+      .at(quesIndex)
+      .get('answers') as FormArray;
+  }
+
+  addAnswers(quesIndex: number) {
+    this.questionAnswers(quesIndex).push(this.newAnswer())
+  }
+
+  removeAnswer(quesIndex: number, ansIndex: number) {
+    this.questionAnswers(quesIndex).removeAt(ansIndex);
+  }
   constructor(private fb: FormBuilder) { }
 }

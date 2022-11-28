@@ -22,15 +22,12 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(question_params)
-
     if @question.save
       render json: { status: :created, entity: @question }
     else
       render json: @question.errors, status: :unprocessable_entity
     end
   end
-
-
 
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
@@ -60,7 +57,7 @@ class QuestionsController < ApplicationController
     end
 
     def question_params
-      params.require(:data).require(:attributes).permit(:content, :coefficient, :quiz_id)
+      params.require(:data).require(:attributes).permit(:content, :coefficient, :quiz_id, :answer_choices => [:choice, :is_correct])
     end
 
 end

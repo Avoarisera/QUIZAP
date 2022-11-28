@@ -9,6 +9,13 @@ RSpec.describe Question, type: :model do
         question.save!
       end.to raise_error(ActiveRecord::RecordInvalid)
     end
+
+    it "has correct answer" do
+      expect do
+        question.quiz_id = nil
+        question.save!
+      end.to raise_error(ActiveRecord::RecordInvalid)
+    end
   end
   describe "#content" do
     it "is not empty" do

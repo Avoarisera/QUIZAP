@@ -7,20 +7,21 @@ import { Router } from '@angular/router';
 const AUTH_API = 'http://localhost:3000';
 
 @Component({
-  selector: 'app-quizzes-list',
-  templateUrl: './quizzes-list.component.html',
-  styleUrls: ['./quizzes-list.component.scss']
+  selector: 'app-students-list',
+  templateUrl: './students-list.component.html',
+  styleUrls: ['./students-list.component.scss']
 })
-export class QuizzesListComponent {
-	valueFromServer: any = null; // This should be set to an actual type, not any, ideally.
-	headers =  new HttpHeaders({ 
+
+export class StudentsListComponent {
+
+  headers =  new HttpHeaders({ 
     "Access-Control-Allow-Origin": "*",
     'Content-Type': 'application/json',
     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
     "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization",
 		'Authorization': `Bearer ${this.tokenStorageService.getToken()}`
   })
-	quizzesList: any
+	usersList: any
 	httpOptions = {
 		headers: this.headers
 	}
@@ -30,36 +31,33 @@ export class QuizzesListComponent {
       this.router.navigate(['/login']);
     }
 		console.log('this.tokenStorageService.getToken()', this.tokenStorageService.getToken())
-		this.getAllquizzes()
+		this.getAllUsers()
 	}
 
-	getAllquizzes() {
-    // return this.http.get(this.quizzesUrl);
+	getAllUsers() {
 		this.http
-		.get(`${AUTH_API}/quizzes`, {
+		.get(`${AUTH_API}/users`, {
 			headers: this.headers
 		})
 		.subscribe(data => {
-			console.log('data', data)
-			this.quizzesList = data
+			console.log('data users', data)
+			this.usersList = data
 		});
   }
 
-	createQuizzes(quizInfo: any): Observable<any> {
-    return this.http.post(`${AUTH_API}/quizzes`, {
+	createUsers(userInfo: any): Observable<any> {
+    return this.http.post(`${AUTH_API}/users`, {
 			data: {
-				type: "quizzes",
-				attributes: quizInfo
+				type: "users",
+				attributes: userInfo
 			}
     },this.httpOptions);
   }
 
-	deleteQuizzes(quizId: any): Observable<any> {
-    return this.http.delete(`${AUTH_API}/quizzes/${quizId}`,this.httpOptions);
+	deleteUser(userId: any): Observable<any> {
+    return this.http.delete(`${AUTH_API}/users/${userId}`,this.httpOptions);
   }
 
 	constructor(private http: HttpClient, private tokenStorageService: TokenStorageService, private router: Router) { }
 
 }
-
- 

@@ -1,41 +1,52 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
 
+  def index
+    render json: User.all
+  end
+
   # GET /users/1
   def show
-    jsonapi_render json: @user
+    render json: @user
   end
 
   # PATCH/PUT /users/1
   def update
-
-    if custom_params[:status] == 'suspended'
-      @user.roles = []
-    end
-
-    if @user.update(custom_params)
-      jsonapi_render json: @user
+    if @user.update(user_params)
+      render json: @user
     else
-      jsonapi_render_errors json: @user, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
 
   def create
-    @user = User.new(custom_params)
-    @user.status = "active"
-    authorize @user if @user.valid?
+    @user = User.new(user_params)
 
     if @user.save
-      jsonapi_render json: @user, status: :created
+      render json: @user, status: :created
     else
-      jsonapi_render_errors json: @user, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity
     end
+  end
+
+  # DELETE /users/1
+  # DELETE /users/1.json
+  def destroy
+    @user.destroy
+    head :no_content, status: 200
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = policy_scope(User).find(params[:id])
-      authorize @user
+      begin
+        @user = User.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        return
+      end
+    end
+
+    def user_params
+      params.require(:data).require(:attributes).permit(:first_name, :last_name, :password, :email)
     end
 end

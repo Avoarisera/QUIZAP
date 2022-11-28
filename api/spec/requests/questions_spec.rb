@@ -12,6 +12,7 @@ RSpec.describe "Questions", type: :request do
           Authorization: "Bearer #{@token}"
         }
     end
+
     it "create question" do
       post questions_url,
       headers: @authorization_header,
@@ -21,7 +22,12 @@ RSpec.describe "Questions", type: :request do
           attributes: {
             content: "question10101",
             coefficient: 2,
-            quiz_id: @quiz.id
+            quiz_id: @quiz.id,
+            answer_choices: [
+              {choice: "Choice 1", is_correct: false},
+              {choice: "Choice 2", is_correct: true},
+              {choice: "Choice 3", is_correct: false}
+            ]
           }
         }
       }, as: :json
@@ -45,7 +51,7 @@ RSpec.describe "Questions", type: :request do
     end
 
     it "destroy question" do
-      delete quiz_url(@quiz), headers: @authorization_header, as: :json
+      delete question_url(@question), headers: @authorization_header, as: :json
       assert_response 204
     end
   end

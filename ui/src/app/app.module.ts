@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NewQuizComponent } from './new-quiz/new-quiz.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { StudentsListComponent } from './students-list/students-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +18,8 @@ import { CreateUserComponent } from './create-user/create-user.component';
     QuizDetailsComponent,
     LoginComponent,
     NewQuizComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    StudentsListComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,9 @@ import { CreateUserComponent } from './create-user/create-user.component';
       { path: '', component: QuizzesListComponent },
       { path: 'login', component: LoginComponent },
       { path: 'new-student', component: CreateUserComponent },
+      { path: 'students', component: StudentsListComponent },
       { path: 'new-quiz', component: NewQuizComponent },
+      { path: 'quizzes', component: QuizzesListComponent },
       { path: 'quizzes/:quiz_id', component: QuizDetailsComponent },
     ])
   ],

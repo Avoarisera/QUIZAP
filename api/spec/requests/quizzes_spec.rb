@@ -51,3 +51,4 @@ RSpec.describe "Quizzes", type: :request do
   end
 
 end
+

@@ -1,7 +1,10 @@
 class AuthController < ApplicationController
   # POST /sign_in
   def sign_in
+    pp "***************"
+    pp params
     @user = User.find_by_email(params[:email])
+    pp @user
     if @user.authenticate(params[:password]) == false
       raise "invalid credentials"
     else
