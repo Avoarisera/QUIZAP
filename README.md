@@ -34,5 +34,7 @@ Here is the report about what you can see in this repo:
     - router guard
 
 the api should be deployed on heroku and the UI on netlify but unfortunately that wasn't done 
- 
+
+
+**here is the DB schema**
 ![Capture d’écran 2022-11-25 à 23 11 23](https://user-images.githubusercontent.com/74425213/204051328-4019737d-d25b-413c-888d-865de0aa627f.png)
