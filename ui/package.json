@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "yarn && ng serve",
-    "build": "yarn && ng build --prod",
+    "build": "yarn && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
