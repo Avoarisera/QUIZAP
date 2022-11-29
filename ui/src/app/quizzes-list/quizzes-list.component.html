@@ -1,4 +1,11 @@
+<!-- really bad practice to add br but usefull when in a rush -->
+<br><br>
 <h1>Test Lists:</h1>
+<a routerLink="/new-quiz"><button type="button" class="btn btn-primary">+New Quiz</button></a>&nbsp;
+<div *ngIf="loadQuizzes" class="spinner-border text-primary spinner-border-sm" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+
 <table class="table table-striped">
 	<thead>
 		<tr>

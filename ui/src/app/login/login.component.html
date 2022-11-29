@@ -1,5 +1,6 @@
 <div class="col-md-12" style="margin: 10%">
-  <div class="card card-container">
+  <div class="card card-container login-form">
+    <h5 class="login-title">Please login with your credentials: </h5>
     <form
       *ngIf="!isLoggedIn"
       name="form"
@@ -48,13 +49,10 @@
         </div>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary btn-block">
-          <a
-            routerLink="/quizzes">
-            {{ "sign-in" }}
-          </a>
+        <br>
+        <button class="btn btn-primary">
+          {{ "sign-in" }}
         </button>
-
       </div>
       <div class="form-group">
         <div

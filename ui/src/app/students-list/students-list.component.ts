@@ -13,7 +13,7 @@ const AUTH_API = 'https://quizap-test.herokuapp.com';
 })
 
 export class StudentsListComponent {
-
+	loadUsers = false
   headers =  new HttpHeaders({ 
     "Access-Control-Allow-Origin": "*",
     'Content-Type': 'application/json',
@@ -35,6 +35,7 @@ export class StudentsListComponent {
 	}
 
 	getAllUsers() {
+		this.loadUsers = true
 		this.http
 		.get(`${AUTH_API}/users`, {
 			headers: this.headers
@@ -42,20 +43,17 @@ export class StudentsListComponent {
 		.subscribe(data => {
 			console.log('data users', data)
 			this.usersList = data
-		});
+		}).add(() => {
+			this.loadUsers = false
+ 		});
   }
 
-	createUsers(userInfo: any): Observable<any> {
-    return this.http.post(`${AUTH_API}/users`, {
-			data: {
-				type: "users",
-				attributes: userInfo
-			}
-    },this.httpOptions);
-  }
-
-	deleteUser(userId: any): Observable<any> {
-    return this.http.delete(`${AUTH_API}/users/${userId}`,this.httpOptions);
+	deleteUser(userId: any) {
+    this.http.delete(`${AUTH_API}/users/${userId}`,this.httpOptions).subscribe(data => {
+			console.log(data)
+			alert("User was deleted")
+			window.location.reload();
+		})
   }
 
 	constructor(private http: HttpClient, private tokenStorageService: TokenStorageService, private router: Router) { }

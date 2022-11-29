@@ -17,7 +17,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
-    console.log('this.tokenStorageService.getToken()', this.tokenStorageService.getToken())
+    console.log('this.tokenStorageService.getToken()', !!this.tokenStorageService.getToken())
     if (!this.isLoggedIn) {
       this.router.navigate(['/login']);
     }

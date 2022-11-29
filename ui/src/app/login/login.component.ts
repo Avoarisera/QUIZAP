@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
 import { TokenStorageService } from '../token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,12 +18,12 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private loginService: LoginService, private tokenStorage: TokenStorageService) { }
+  constructor(private loginService: LoginService, private tokenStorage: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
+    console.log('this.tokenStorage.getToken() login', this.tokenStorage.getToken())
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
     }
   }
 
@@ -33,10 +34,10 @@ export class LoginComponent implements OnInit {
       data => {
         console.log('data', data)
         this.tokenStorage.saveToken(data.auth);
-        this.tokenStorage.saveUser(data);
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
+        this.router.navigate(['/quizzes']);
       },
       err => {
         this.errorMessage = err.error.message;

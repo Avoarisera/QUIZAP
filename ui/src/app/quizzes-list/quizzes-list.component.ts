@@ -13,6 +13,7 @@ const AUTH_API = 'https://quizap-test.herokuapp.com';
 })
 export class QuizzesListComponent {
 	valueFromServer: any = null; // This should be set to an actual type, not any, ideally.
+	loadQuizzes = false
 	headers =  new HttpHeaders({ 
     "Access-Control-Allow-Origin": "*",
     'Content-Type': 'application/json',
@@ -34,6 +35,7 @@ export class QuizzesListComponent {
 	}
 
 	getAllquizzes() {
+		this.loadQuizzes = true
     // return this.http.get(this.quizzesUrl);
 		this.http
 		.get(`${AUTH_API}/quizzes`, {
@@ -42,7 +44,9 @@ export class QuizzesListComponent {
 		.subscribe(data => {
 			console.log('data', data)
 			this.quizzesList = data
-		});
+		}).add(() => {
+			this.loadQuizzes = false
+ 		});
   }
 
 	createQuizzes(quizInfo: any): Observable<any> {
