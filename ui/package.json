@@ -1,10 +1,10 @@
 {
-  "name": "quizzz",
+  "name": "quizap-ui",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm install && ng serve",
-    "build": "npm install && ng build",
+    "start": "yarn && ng serve",
+    "build": "yarn && ng build --prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
