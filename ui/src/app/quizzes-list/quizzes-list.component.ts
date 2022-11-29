@@ -4,7 +4,7 @@ import { TokenStorageService } from '../token-storage.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-const AUTH_API = 'http://localhost:3000';
+const AUTH_API = 'https://quizap-test.herokuapp.com';
 
 @Component({
   selector: 'app-quizzes-list',
