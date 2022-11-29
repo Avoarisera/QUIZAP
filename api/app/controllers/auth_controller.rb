@@ -9,10 +9,10 @@ class AuthController < ApplicationController
       raise "invalid credentials"
     else
     # sets up token
+
+    token = generate_token({ uid: @user.id })
     pp "token"
     pp token
-    token = generate_token({ uid: @user.id })
-
     render json: { auth: token }, status: :created
     end
   end
