@@ -3,7 +3,7 @@
 I choose to create a ruby on rails api-only for the backend rather than a fullstack app with API inside to have more flexibility when develop the UI also with ruby on rails 7 the API only with rails was really improved to be more scalable
 by the way It was the first time I used mono-repo that's why I had some hard time to achive the app correctly
 here is the project board I used to manage the task I had to do and  monitor my progress https://github.com/users/Avoarisera/projects/1
-
+the api is here https://quizap-test.herokuapp.com/ and the UI is https://radiant-lamington-c77852.netlify.app
 Here is the report about what you can see in this repo:
 
 ## API 
