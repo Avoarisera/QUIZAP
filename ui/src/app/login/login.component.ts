@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginService } from '../login.service';
 import { TokenStorageService } from '../token-storage.service';
 import { Router } from '@angular/router';
@@ -8,26 +8,21 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   form: any = {
     email: null,
     password: null
   };
-  isLoggedIn = false;
+  isLoggedIn = !!this.tokenStorage.getToken();
   isLoginFailed = false;
   errorMessage = '';
+  loginLoading = false
   roles: string[] = [];
 
   constructor(private loginService: LoginService, private tokenStorage: TokenStorageService, private router: Router) { }
 
-  ngOnInit(): void {
-    console.log('this.tokenStorage.getToken() login', this.tokenStorage.getToken())
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
-    }
-  }
-
   signIn(): void {
+    this.loginLoading = true
     const { email, password } = this.form;
 
     this.loginService.login(email, password).subscribe(
@@ -36,14 +31,15 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveToken(data.auth);
 
         this.isLoginFailed = false;
-        this.isLoggedIn = true;
         this.router.navigate(['/quizzes']);
       },
       err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
-    );
+    ).add(() => {
+      this.loginLoading = false
+ 		});
   }
 
   reloadPage(): void {

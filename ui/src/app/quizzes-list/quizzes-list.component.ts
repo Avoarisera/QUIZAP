@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenStorageService } from '../token-storage.service';
+import { ApiProxyService } from '../api-proxy.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -13,7 +14,7 @@ const AUTH_API = 'https://quizap-test.herokuapp.com';
 })
 export class QuizzesListComponent {
 	valueFromServer: any = null; // This should be set to an actual type, not any, ideally.
-	loadQuizzes = false
+	loadQuizzes = true
 	headers =  new HttpHeaders({ 
     "Access-Control-Allow-Origin": "*",
     'Content-Type': 'application/json',
@@ -30,39 +31,24 @@ export class QuizzesListComponent {
     if (!this.tokenStorageService.getToken()) {
       this.router.navigate(['/login']);
     }
-		console.log('this.tokenStorageService.getToken()', this.tokenStorageService.getToken())
-		this.getAllquizzes()
-	}
 
-	getAllquizzes() {
-		this.loadQuizzes = true
-    // return this.http.get(this.quizzesUrl);
-		this.http
-		.get(`${AUTH_API}/quizzes`, {
-			headers: this.headers
-		})
-		.subscribe(data => {
+		this.apiProxyService.getAllquizzes().subscribe(data => {
 			console.log('data', data)
 			this.quizzesList = data
 		}).add(() => {
 			this.loadQuizzes = false
  		});
+	}
+
+	deleteQuiz(Id: any) {
+    this.apiProxyService.deleteQuizzes(Id).subscribe(() => {
+			alert(`Quiz ${Id} was deleted`)
+		}).add(() => {
+			// Do something
+ 		});
   }
 
-	createQuizzes(quizInfo: any): Observable<any> {
-    return this.http.post(`${AUTH_API}/quizzes`, {
-			data: {
-				type: "quizzes",
-				attributes: quizInfo
-			}
-    },this.httpOptions);
-  }
-
-	deleteQuizzes(quizId: any): Observable<any> {
-    return this.http.delete(`${AUTH_API}/quizzes/${quizId}`,this.httpOptions);
-  }
-
-	constructor(private http: HttpClient, private tokenStorageService: TokenStorageService, private router: Router) { }
+	constructor(private http: HttpClient, private tokenStorageService: TokenStorageService, private router: Router, private apiProxyService: ApiProxyService) { }
 
 }
 

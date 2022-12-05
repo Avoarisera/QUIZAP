@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const AUTH_API = 'https://quizap-test.herokuapp.com/';
+const AUTH_API = 'https://quizap-test.herokuapp.com';
 
 const httpOptions = {
   headers: new HttpHeaders({ 
@@ -20,7 +20,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post(AUTH_API + 'sign-in', {
+    return this.http.post(AUTH_API + '/sign-in', {
       email,
       password
     }, httpOptions);

@@ -2,7 +2,7 @@
     <ul class="main-nav">
         <li><a routerLink="/students">Users</a></li>
         <li><a routerLink="/quizzes">Tests</a></li>
-        <li *ngIf="isLoggedIn === null"><a class="btn btn-light my-2 my-sm-0" (click)="logout()" href="#">Logout</a></li>
+        <li *ngIf="isLoggedIn"><a class="btn btn-light my-2 my-sm-0" (click)="logout()" href="#">Logout</a></li>
     </ul>
 </header> 
 <div class="container">

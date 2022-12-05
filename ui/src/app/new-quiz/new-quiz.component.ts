@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
+import { ApiProxyService } from '../api-proxy.service';
 import { Validators } from '@angular/forms';
 @Component({
   selector: 'app-new-quiz',
@@ -23,10 +24,17 @@ export class NewQuizComponent {
       })
     ])
   });
-  onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.quizForm.value);
+
+  submitQuiz() {
+    this.apiProxyService.createQuizzes(this.quizForm).subscribe(data => {
+			console.log('data', data)
+      // Do something
+		}).add(() => {
+      // Do something
+ 		});
   }
+
+  // this.loginService.login
 
   questions(): FormArray {
     return this.quizForm.get('questions') as FormArray;
@@ -71,5 +79,5 @@ export class NewQuizComponent {
   removeAnswer(quesIndex: number, ansIndex: number) {
     this.questionAnswers(quesIndex).removeAt(ansIndex);
   }
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private apiProxyService: ApiProxyService) { }
 }

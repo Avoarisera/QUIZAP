@@ -1,6 +1,6 @@
 <!-- really bad practice to add br but usefull when in a rush -->
 <br><br>
-<h1>Test Lists:</h1>
+<h1>Quizzes Lists:</h1>
 <a routerLink="/new-quiz"><button type="button" class="btn btn-primary">+ New Quiz</button></a>&nbsp;
 <div *ngIf="loadQuizzes" class="spinner-border text-primary spinner-border-sm" role="status">
   <span class="visually-hidden">Loading...</span>
@@ -24,7 +24,7 @@
 			<td>{{ quiz.description }}</td>
 			<td>
         <a routerLink="/new-quiz" class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square"></i></a>&nbsp;
-        <a (click)="deleteQuiz(quiz.id)" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash3"></i></a>
+        <a (click)="deleteQuizzes(quiz.id)" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash3"></i></a>
       </td>
 		</tr>
 	</tbody>
