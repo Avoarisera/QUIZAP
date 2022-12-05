@@ -19,7 +19,7 @@
     <div *ngFor="let question of questions().controls; let questionIndex=index">
       <ng-container class="row" [formGroupName]="questionIndex">
         <p align="right">
-          <button class="btn btn-warning btn-sm" type="submit" >Cancel</button>
+          <button class="btn btn-warning btn-sm" type="submit" (click)="removeQuestion(questionIndex)" >Cancel</button>
         </p>
         <p>Question-{{questionIndex+1}}:</p>
         <div class="row" >

@@ -26,12 +26,13 @@ export class NewQuizComponent {
   });
 
   submitQuiz() {
-    this.apiProxyService.createQuizzes(this.quizForm).subscribe(data => {
-			console.log('data', data)
-      // Do something
-		}).add(() => {
-      // Do something
- 		});
+    console.log('this.quizForm', this.quizForm)
+    // this.apiProxyService.createQuizzes(this.quizForm).subscribe(data => {
+		// 	console.log('data', data)
+    //   // Do something
+		// }).add(() => {
+    //   // Do something
+ 		// });
   }
 
   // this.loginService.login
@@ -55,7 +56,7 @@ export class NewQuizComponent {
     }));
   }
 
-  removeEmployee(quesIndex: number) {
+  removeQuestion(quesIndex: number) {
     this.questions().removeAt(quesIndex);
   }
 
